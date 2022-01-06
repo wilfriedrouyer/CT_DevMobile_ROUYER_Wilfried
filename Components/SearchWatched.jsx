@@ -15,50 +15,38 @@ import DisplayError from "./DisplayError";
 
 import Colors from "../definitions/Colors";
 
-import { getFilms, getFilmByName } from "../api/tmdb";
+import { getFilmById, getFilmByName } from "../api/tmdb";
 
 const SearchWatched = ({ navigation, favFilms }) => {
     const [isError, setIsError] = useState(false);
     const [isEmpty, setIsEmpty] = useState(true);
+    const [filmsFavoris, setFilmsFavoris] = useState([])
 
-  /*const requestFilms = async (prevFilms, page, name) => {
-    setIsError(false);
-    try {
-      if (name === "") {
-        const tmdbSearchResult = await getFilms(searchTerm, page);
-        setFilms([...prevFilms, ...tmdbSearchResult.results]);
-      } else {
-        const tmdbSearchResult = await getFilmByName(searchTerm, page, name);
-        setFilms([]);
-        setFilms([...prevFilms, ...tmdbSearchResult.results]);
-      }
-      if (nextPage < 1000) {
-        setNextPage(nextPage + 1);
-      }
-    } catch (error) {
-      setIsError(true);
-      setFilms([]);
-    }
-  };
-
-  useEffect(() => {
-      console.log(favFilms);
-    setIsEmpty(true);
-        setIsError(false);
-        filmFavoris = await Promise.all(
-            filmFavoris.map(async (id) => await getRestaurantById(id))
-        );
-  }, []);
+    useEffect(() => {
+      (async () => {
+        try {
+          setIsEmpty(true);
+          setIsError(false);
+          setFilmsFavoris(await Promise.all(
+            favFilms.map(async (id) => await getFilmById(id))
+          ));
+  
+          if (filmsFavoris.lenght > 0) {
+            console.log(vide);
+            setIsEmpty(true);
+          } else {
+            setIsEmpty(false);
+          }
+        } catch (error) {
+          setIsError(true);
+          console.log(error);
+        }
+      })();
+    }, []);
 
   const searchFilms = (name = "") => {
     Keyboard.dismiss();
     requestFilms([], 1, name);
-  };
-
-  const loadMoreFilms = () => {
-    if (isMoreResults) {
-      requestFilms(films, nextPage);
-    }
   };
 
   const navigateToFilmDetails = (filmId) => {
@@ -73,7 +61,7 @@ const SearchWatched = ({ navigation, favFilms }) => {
     setSearchTerm("");
     searchFilms();
   }
-*/
+
   return (
     <View style={styles.container}>
     {isEmpty ? (
@@ -82,7 +70,7 @@ const SearchWatched = ({ navigation, favFilms }) => {
       <DisplayError message="Impossible de récupérer les films" />
     ) : (
       <FlatList
-          data={films}
+          data={filmsFavoris}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (
             <FilmListItem
@@ -91,7 +79,6 @@ const SearchWatched = ({ navigation, favFilms }) => {
               isFav={amIaFavFilm(item.id)}
             />
           )}
-          onEndReached={loadMoreFilms}
         />
       )}
     </View>
