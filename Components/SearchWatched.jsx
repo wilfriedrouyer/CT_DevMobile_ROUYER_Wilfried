@@ -102,9 +102,6 @@ const styles = StyleSheet.create({
   searchContainer: {
     marginBottom: 16,
   },
-  inputRestaurantName: {
-    marginBottom: 8,
-  },
   serachInput: {
     flexDirection: 'row'
   },

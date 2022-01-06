@@ -80,7 +80,7 @@ const Film = ({ route, favFilms, dispatch }) => {
 
   const displaySaveFilm = () => {
     if (favFilms.findIndex(i => i === route.params.filmId) !== -1) {
-      // Le restaurant est sauvegardé
+      // Le film est sauvegardé
       return (
         <Button
           title="Retirer des favoris"
@@ -89,7 +89,7 @@ const Film = ({ route, favFilms, dispatch }) => {
         />
       );
     }
-    // Le restaurant n'est pas sauvegardé
+    // Le film n'est pas sauvegardé
     return (
       <Button
         title="Ajouter aux favoris"
@@ -110,7 +110,7 @@ const Film = ({ route, favFilms, dispatch }) => {
       ) : (
         <ScrollView style={styles.containerScroll}>
           <View style={styles.containerCardTop}>
-            <View style={styles.containerEstab}>
+            <View style={styles.container}>
               <Text style={styles.textName}>{film.original_title}</Text>
 
               <Text style={styles.textContent}>
@@ -121,11 +121,11 @@ const Film = ({ route, favFilms, dispatch }) => {
                 Runtime : {film.runtime}min
               </Text>
             </View>
-            <View style={styles.containerEstab}>
+            <View style={styles.container}>
               <Text style={styles.textName}>Cast</Text>
               <Text style={styles.textContent}>{getCast()}</Text>
             </View>
-            <View style={styles.containerEstab}>
+            <View style={styles.container}>
               <Text style={styles.textName}>Overview</Text>
               <Text style={styles.textContent}>{film.overview}</Text>
             </View>
@@ -173,21 +173,7 @@ const styles = StyleSheet.create({
     padding: 12,
     backgroundColor: "white",
   },
-  containerNoRestaurantImage: {
-    height: 128,
-    alignItems: "center",
-    justifyContent: "center",
-    borderTopLeftRadius: 3,
-    borderTopRightRadius: 3,
-    backgroundColor: "white",
-  },
-  restaurantImage: {
-    height: 180,
-    backgroundColor: Colors.mainGreen,
-    borderTopLeftRadius: 3,
-    borderTopRightRadius: 3,
-  },
-  containerEstab: {
+  container: {
     flex: 4,
   },
   containerNoteAndVotes: {

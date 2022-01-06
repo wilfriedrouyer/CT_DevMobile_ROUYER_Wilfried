@@ -79,13 +79,13 @@ const Search = ({ navigation, favFilms }) => {
           <TextInput
             placeholder="Movie"
             value={searchTerm}
-            style={[styles.inputRestaurantName, {flex: 4}]}
+            style={[styles.inputFilmName, {flex: 4}]}
             onChangeText={(text) => setSearchTerm(text)}
             onSubmitEditing={(name) => searchFilms(name)}
           />
 
           <Button
-            title="Annuler"
+            title="Cancel"
             color={Colors.mainGreen}
             onPress={cancelSearch}
             style={{flex: 1}}
@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
   searchContainer: {
     marginBottom: 16,
   },
-  inputRestaurantName: {
+  inputFilmName: {
     marginBottom: 8,
   },
   serachInput: {
