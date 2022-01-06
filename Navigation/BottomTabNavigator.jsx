@@ -2,7 +2,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Image } from "react-native";
 
-import Watched from "../Components/Watched";
+import SearchWatched from "../Components/SearchWatched";
 import Search from "../Components/Search";
 import Film from "../Components/Film";
 import Colors from "../definitions/Colors";
@@ -32,7 +32,7 @@ const FilmStack = () => {
     <SearchNavigation.Navigator initialRouteName="ViewSearch">
       <SearchNavigation.Screen
         name="ViewSearch"
-        component={Watched}
+        component={SearchWatched}
         options={{ title: "Search", headerShow: false }}
       />
     </SearchNavigation.Navigator>

@@ -5,7 +5,6 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { RootSiblingParent } from 'react-native-root-siblings';
 
-import Flexbox from "./Components/Flexbox";
 import BottomNavigation from "./Navigation/BottomTabNavigator";
 import { Store, Persistor } from './store/config';
 

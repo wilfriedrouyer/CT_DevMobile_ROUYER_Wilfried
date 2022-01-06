@@ -44,14 +44,10 @@ export async function getFilmByName(name = "Batman") {
   export async function getCasting(id) {
     try {
       const myHeaders = new Headers({ "user-key": API_KEY });
-      const url1 = `${BASE_URL}/movie/${id}/external_ids?api_key=${API_KEY}`;
-      const response1 = await fetch(url1, { headers: myHeaders });
-      const json1 = await response1.json();
-      
-      const url2 = `${BASE_URL}/find/${json1.imdb_id}?api_key=${API_KEY}&external_source=imdb_id`;
-      const response2 = await fetch(url2, { headers: myHeaders });
-      const json2 = await response2.json();
-      return json2.person_results;
+      const url = `${BASE_URL}/movie/${id}/credits?api_key=${API_KEY}`;
+      const response = await fetch(url, { headers: myHeaders });
+      const json = await response.json();
+      return json;
     } catch (error) {
       console.log(`Error with function getFilmByExternalId ${error.message}`);
       throw error;

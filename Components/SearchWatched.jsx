@@ -17,12 +17,9 @@ import Colors from "../definitions/Colors";
 
 import { getFilms, getFilmByName } from "../api/tmdb";
 
-const Search = ({ navigation, favFilms }) => {
-  const [films, setFilms] = useState();
-  const [nextPage, setNextPage] = useState(1);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [isMoreResults, setIsMoreResults] = useState(true);
-  const [isError, setIsError] = useState(false);
+const SearchWatched = ({ navigation, favFilms }) => {
+    const [isError, setIsError] = useState(false);
+    const [isEmpty, setIsEmpty] = useState(true);
 
   const requestFilms = async (prevFilms, page, name) => {
     setIsError(false);
@@ -45,7 +42,12 @@ const Search = ({ navigation, favFilms }) => {
   };
 
   useEffect(() => {
-    searchFilms();
+      console.log(favFilms);
+    setIsEmpty(true);
+        setIsError(false);
+        filmFavoris = await Promise.all(
+            filmFavoris.map(async (id) => await getRestaurantById(id))
+        );
   }, []);
 
   const searchFilms = (name = "") => {
@@ -74,33 +76,12 @@ const Search = ({ navigation, favFilms }) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.searchContainer}>
-        <View style={styles.serachInput}>
-          <TextInput
-            placeholder="Movie"
-            value={searchTerm}
-            style={[styles.inputRestaurantName, {flex: 4}]}
-            onChangeText={(text) => setSearchTerm(text)}
-            onSubmitEditing={(name) => searchFilms(name)}
-          />
-
-          <Button
-            title="Annuler"
-            color={Colors.mainGreen}
-            onPress={cancelSearch}
-            style={{flex: 1}}
-          />
-        </View>
-        <Button
-          title="Search"
-          color={Colors.mainGreen}
-          onPress={(name) => searchFilms(name)}
-        />
-      </View>
-      {isError ? (
-        <DisplayError message="Impossible de récupérer les films" />
-      ) : (
-        <FlatList
+    {isEmpty ? (
+      <DisplayError message="Aucun favoris" />
+    ) : isError ? (
+      <DisplayError message="Impossible de récupérer les films" />
+    ) : (
+      <FlatList
           data={films}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (
@@ -123,7 +104,7 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(Search);
+export default connect(mapStateToProps)(SearchWatched);
 
 const styles = StyleSheet.create({
   container: {

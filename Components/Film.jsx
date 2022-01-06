@@ -8,6 +8,7 @@ import {
   Button,
 } from "react-native";
 import Toast from 'react-native-root-toast';
+import { connect } from 'react-redux';
 
 import DisplayError from "./DisplayError";
 
@@ -20,6 +21,7 @@ const Film = ({ route, favRestaurants, dispatch }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [film, setFilm] = useState(null);
   const [isError, setIsError] = useState(false);
+  const [listCast, setListCast] = useState([]);
 
   useEffect(() => {
     requestFilm();
@@ -30,6 +32,8 @@ const Film = ({ route, favRestaurants, dispatch }) => {
     try {
       const tmdbFilmResult = await getFilmById(route.params.filmId);
       setFilm(tmdbFilmResult);
+      const castResult = await getCasting(route.params.filmId);
+      setListCast(castResult);
       setIsLoading(false);
     } catch (error) {
       console.log(error);
@@ -64,13 +68,12 @@ const Film = ({ route, favRestaurants, dispatch }) => {
 
   const getCast = () => {
     let cast = "";
-    const listCast = getCasting(route.params.filmId);
-    /*if (listCast.length !== 0) {
-      listCast.forEach((person) => {
+    if (listCast.length !== 0) {
+      listCast.cast.forEach((person) => {
         if (cast !== "") cast = cast + ", " + person.name;
         else cast = person.name;
       });
-    }*/
+    }
     return cast;
   };
 
@@ -133,7 +136,13 @@ const Film = ({ route, favRestaurants, dispatch }) => {
   );
 };
 
-export default Film;
+const mapStateToProps = (state) => {
+    return {
+      favFilms: state.favFilmsID
+    }
+  }
+  
+  export default connect(mapStateToProps)(Film);
 
 const styles = StyleSheet.create({
   container: {
