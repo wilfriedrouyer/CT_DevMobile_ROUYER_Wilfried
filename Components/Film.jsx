@@ -17,7 +17,7 @@ import { getFilmById, getCasting, favFilms } from "../api/tmdb";
 import Colors from "../definitions/Colors";
 import Assets from "../definitions/Assets";
 
-const Film = ({ route, favRestaurants, dispatch }) => {
+const Film = ({ route, favFilms, dispatch }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [film, setFilm] = useState(null);
   const [isError, setIsError] = useState(false);
@@ -48,9 +48,10 @@ const Film = ({ route, favRestaurants, dispatch }) => {
     let toast = Toast.show(`Film ajouté aux favoris`, {
       duration: Toast.durations.LONG,
     });
+    console.log(favFilms);
   };
   const unsaveFilm = async () => {
-    const action = { type: "SUNAVE_FILM", value: route.params.filmId };
+    const action = { type: "UNSAVE_FILM", value: route.params.filmId };
     dispatch(action);
     let toast = Toast.show(`Film retiré des favoris`, {
       duration: Toast.durations.LONG,
@@ -78,7 +79,7 @@ const Film = ({ route, favRestaurants, dispatch }) => {
   };
 
   const displaySaveFilm = () => {
-    if (favFilms) {
+    if (favFilms.findIndex(i => i === route.params.filmId) !== -1) {
       // Le restaurant est sauvegardé
       return (
         <Button

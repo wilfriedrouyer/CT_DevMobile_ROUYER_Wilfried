@@ -21,7 +21,7 @@ const SearchWatched = ({ navigation, favFilms }) => {
     const [isError, setIsError] = useState(false);
     const [isEmpty, setIsEmpty] = useState(true);
 
-  const requestFilms = async (prevFilms, page, name) => {
+  /*const requestFilms = async (prevFilms, page, name) => {
     setIsError(false);
     try {
       if (name === "") {
@@ -73,7 +73,7 @@ const SearchWatched = ({ navigation, favFilms }) => {
     setSearchTerm("");
     searchFilms();
   }
-
+*/
   return (
     <View style={styles.container}>
     {isEmpty ? (

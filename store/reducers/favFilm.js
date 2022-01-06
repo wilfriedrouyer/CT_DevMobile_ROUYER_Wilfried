@@ -4,6 +4,7 @@ function favFilms(state = initialState, action) {
   let nextState
   switch (action.type) {
     case 'SAVE_FILM':
+      console.log(nextState);
       nextState = {
         ...state,
         favFilmsID: [...state.favFilmsID, action.value]

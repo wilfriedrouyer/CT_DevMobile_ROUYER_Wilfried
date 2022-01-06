@@ -4,7 +4,7 @@ import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import Assets from "../definitions/Assets";
 import Colors from "../definitions/Colors";
 
-const Liste = ({ onClick, filmData }) => {
+const Liste = ({ onClick, filmData, isFav = false }) => {
   const getImage = () => {
     if (filmData.poster_path) {
       return (
@@ -34,12 +34,12 @@ const Liste = ({ onClick, filmData }) => {
       <View style={styles.informationContainer}>
         <View style={styles.titleContainer}>
           <Text style={styles.title}>{filmData.original_title}</Text>
-          {/*isFav ? (
+          {isFav ? (
             <Image
               style={[styles.icon, { marginLeft: "auto" }]}
               source={Assets.icons.favFull}
             />
-          ) : null*/}
+          ) : null}
         </View>
         <Text style={[styles.data, styles.release_date]} numberOfLines={1}>
           {filmData.release_date}
